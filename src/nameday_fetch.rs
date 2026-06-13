@@ -1,19 +1,14 @@
-use std::collections::HashMap;
-
 use axum::{Json, response::IntoResponse};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
+#[allow(unused)]
 #[derive(Debug, Clone, Deserialize)]
 struct NamedayResponse {
     success: bool,
     message: String,
     data: HashMap<String, String>,
-}
-
-#[derive(Debug)]
-pub struct NamedayError {
-    response: String,
 }
 
 #[derive(Debug, Clone, Deserialize, Default, Serialize)]

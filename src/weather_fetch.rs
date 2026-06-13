@@ -1,9 +1,8 @@
-use std::fmt::Display;
-
 use axum::{Json, response::IntoResponse};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
+#[allow(unused)]
 #[derive(Debug, Deserialize)]
 pub struct RawWeatherResponse {
     pub latitude: f64,
@@ -17,6 +16,7 @@ pub struct RawWeatherResponse {
     pub current: current,
 }
 
+#[allow(unused, non_camel_case_types)]
 #[derive(Debug, Deserialize)]
 pub struct current_units {
     pub time: String,
@@ -30,6 +30,7 @@ pub struct current_units {
     pub weathercode: String,
 }
 
+#[allow(unused, non_camel_case_types)]
 #[derive(Debug, Deserialize)]
 pub struct current {
     pub time: String,
@@ -57,17 +58,6 @@ pub struct ProcessedWeatherResponse {
     precipitation: f32,
     cloud_cover: f32,
     weather_code: i32,
-}
-
-#[derive(Debug)]
-pub struct WeatherResponseError {
-    pub response: String,
-}
-
-impl Display for WeatherResponseError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.response)
-    }
 }
 
 static WEATHER_API_URL: &str = "https://api.open-meteo.com/v1/forecast?latitude=48.7164&longitude=21.2611&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation,cloud_cover,weathercode&timezone=auto";

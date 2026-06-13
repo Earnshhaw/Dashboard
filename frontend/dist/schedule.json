@@ -101,18 +101,6 @@
       "name": "8th Lesson",
       "start": "14:45",
       "end": "15:30"
-    },
-    {
-      "type": "break",
-      "name": "Break",
-      "start": "15:30",
-      "end": "15:35"
-    },
-    {
-      "type": "lesson",
-      "name": "9th Lesson",
-      "start": "15:35",
-      "end": "16:20"
     }
   ]
 }

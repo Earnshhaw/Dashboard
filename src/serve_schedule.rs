@@ -1,12 +1,6 @@
-use std::sync::Arc;
-
-use axum::{Json, extract::State, response::IntoResponse};
+use axum::{Json, response::IntoResponse};
 use serde::{Deserialize, Serialize};
-
-#[derive(Clone)]
-pub struct AppState {
-    pub schedule: Arc<ScheduleResponse>,
-}
+use std::fs;
 
 #[derive(Serialize, Clone, Deserialize, Default)]
 struct LessonBlock {
@@ -21,6 +15,11 @@ pub struct ScheduleResponse {
     schedule: Vec<LessonBlock>,
 }
 
-pub async fn get_schedule(State(state): State<AppState>) -> impl IntoResponse {
-    Json((*state.schedule).clone())
+pub async fn get_schedule() -> impl IntoResponse {
+    let file = fs::read_to_string("frontend/dist/schedule.json").unwrap();
+    let schedule: ScheduleResponse = serde_json::from_str(&file).unwrap_or_else(|_| {
+        eprintln!("Failed to parse schedule.json, using default fallback");
+        ScheduleResponse::default()
+    });
+    Json(schedule)
 }

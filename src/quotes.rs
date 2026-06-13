@@ -2,6 +2,7 @@ use axum::{Json, response::IntoResponse};
 use serde::Deserialize;
 use serde::Serialize;
 use std::fs;
+
 #[derive(Deserialize, Serialize, Default)]
 struct OuterQuotes {
     quotes: Vec<Quote>,
