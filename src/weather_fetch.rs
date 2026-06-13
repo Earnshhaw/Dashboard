@@ -1,4 +1,5 @@
-use axum::{Json, response::IntoResponse};
+use axum::Json;
+use axum::http::StatusCode;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
@@ -62,21 +63,17 @@ pub struct ProcessedWeatherResponse {
 
 static WEATHER_API_URL: &str = "https://api.open-meteo.com/v1/forecast?latitude=48.7164&longitude=21.2611&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation,cloud_cover,weathercode&timezone=auto";
 
-pub async fn fetch_weather() -> impl IntoResponse {
+pub async fn fetch_weather() -> Result<Json<ProcessedWeatherResponse>, StatusCode> {
     let client = Client::new();
-    let Ok(response) = client.get(WEATHER_API_URL).send().await else {
-        {
-            eprintln!("Weather API request failed");
-            return Json(ProcessedWeatherResponse::default());
-        }
-    };
+    let response = client.get(WEATHER_API_URL).send().await.map_err(|e| {
+        eprintln!("Weather API request failed: {e}");
+        StatusCode::INTERNAL_SERVER_ERROR
+    })?;
 
-    let Ok(body) = response.json::<RawWeatherResponse>().await else {
-        {
-            eprintln!("Failed to parse Weather API response");
-            return Json(ProcessedWeatherResponse::default());
-        }
-    };
+    let body = response.json::<RawWeatherResponse>().await.map_err(|e| {
+        eprintln!("Failed to parse Weather API response: {e}");
+        StatusCode::INTERNAL_SERVER_ERROR
+    })?;
 
     let processed = ProcessedWeatherResponse {
         temperature: body.current.temperature_2m,
@@ -87,5 +84,5 @@ pub async fn fetch_weather() -> impl IntoResponse {
         cloud_cover: body.current.cloud_cover,
         weather_code: body.current.weathercode,
     };
-    Json(processed)
+    Ok(Json(processed))
 }

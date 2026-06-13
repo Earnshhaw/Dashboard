@@ -1,4 +1,4 @@
-use axum::{Json, response::IntoResponse};
+use axum::{Json, http::StatusCode};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -18,29 +18,24 @@ pub struct ProcessedResponse {
 
 static NAMEDAY_API_URL: &str = "https://nameday.abalin.net/api/V2/today/";
 
-pub async fn nameday() -> impl IntoResponse {
+pub async fn nameday() -> Result<Json<ProcessedResponse>, StatusCode> {
     let client = Client::new();
-    let Ok(response) = client.get(NAMEDAY_API_URL).send().await else {
-        {
-            eprintln!("Nameday API request failed");
-            return Json(ProcessedResponse::default());
-        }
-    };
+    let response = client.get(NAMEDAY_API_URL).send().await.map_err(|e| {
+        eprintln!("{e}");
+        StatusCode::REQUEST_TIMEOUT
+    })?;
 
-    let Ok(parsed) = response.json::<NamedayResponse>().await else {
-        {
-            eprintln!("Failed to parse Nameday API response");
-            return Json(ProcessedResponse::default());
-        }
-    };
+    let parsed: NamedayResponse = response.json().await.map_err(|e| {
+        eprintln!("{e}");
+        StatusCode::REQUEST_TIMEOUT
+    })?;
 
     let Some(parsed) = parsed.data.get("sk").cloned() else {
         {
             eprintln!("Nameday value not found in response");
-            return Json(ProcessedResponse::default());
+            return Err(StatusCode::NOT_FOUND);
         }
     };
 
-    let processed = ProcessedResponse { nameday: parsed };
-    Json(processed)
+    Ok(Json(ProcessedResponse { nameday: parsed }))
 }

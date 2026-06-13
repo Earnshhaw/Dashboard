@@ -1,10 +1,11 @@
-use axum::{Json, response::IntoResponse};
+use axum::Json;
+use axum::http::StatusCode;
 use serde::Deserialize;
 use serde::Serialize;
 use std::fs;
 
 #[derive(Deserialize, Serialize, Default)]
-struct OuterQuotes {
+pub struct OuterQuotes {
     quotes: Vec<Quote>,
 }
 
@@ -14,13 +15,16 @@ struct Quote {
     author: String,
 }
 
-pub async fn get_quotes() -> impl IntoResponse {
-    let Ok(quotes) = fs::read_to_string("frontend/dist/quotes.json") else {
-        return Json::default();
-    };
-    let Ok(outer_quotes) = serde_json::from_str::<OuterQuotes>(&quotes) else {
-        return Json::default();
-    };
+pub async fn get_quotes() -> Result<Json<OuterQuotes>, StatusCode> {
+    let quotes = fs::read_to_string("frontend/dist/quotes.json").map_err(|e| {
+        eprintln!("Failed to read quotes.json: {e}");
+        StatusCode::INTERNAL_SERVER_ERROR
+    })?;
 
-    Json(outer_quotes)
+    let outer_quotes = serde_json::from_str::<OuterQuotes>(&quotes).map_err(|e| {
+        eprintln!("Failed to parse quotes.json: {e}");
+        StatusCode::INTERNAL_SERVER_ERROR
+    })?;
+
+    Ok(Json(outer_quotes))
 }

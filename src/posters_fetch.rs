@@ -1,27 +1,27 @@
 use axum::Json;
-use axum::response::IntoResponse;
+use axum::http::StatusCode;
 use serde::Serialize;
 use std::fs;
 
 #[derive(Serialize, Debug)]
-struct Poster {
+pub struct Poster {
     title: String,
     path: String,
 }
 
-pub async fn fetch_posters() -> impl IntoResponse {
+pub async fn fetch_posters() -> Result<Json<Vec<Poster>>, StatusCode> {
     let mut posters: Vec<Poster> = Vec::new();
 
-    let dir = match fs::read_dir("frontend/posters") {
-        Ok(dir) => dir,
-        Err(_) => return Json(posters),
-    };
+    let dir = fs::read_dir("frontend/posters").map_err(|e| {
+        eprintln!("{e}");
+        return StatusCode::INTERNAL_SERVER_ERROR;
+    })?;
 
     for entry in dir {
-        let entry = match entry {
-            Ok(e) => e,
-            Err(_) => continue,
-        };
+        let entry = entry.map_err(|e| {
+            eprintln!("{e}");
+            return StatusCode::INTERNAL_SERVER_ERROR;
+        })?;
 
         let path = entry.path();
         let edited_path = path.clone().to_string_lossy().replace("\\", "/");
@@ -39,5 +39,5 @@ pub async fn fetch_posters() -> impl IntoResponse {
             }
         }
     }
-    Json(posters)
+    Ok(Json(posters))
 }
