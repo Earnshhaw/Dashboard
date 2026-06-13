@@ -16,7 +16,7 @@ pub struct ScheduleResponse {
 }
 
 pub async fn get_schedule() -> Result<Json<ScheduleResponse>, StatusCode> {
-    let file = fs::read_to_string("frontend/dist/schedule.json").map_err(|e| {
+    let file = fs::read_to_string("frontend/resources/schedule.json").map_err(|e| {
         eprintln!("Failed to read schedule.json: {e}");
         StatusCode::INTERNAL_SERVER_ERROR
     })?;

@@ -34,7 +34,7 @@ pub async fn fetch_posters() -> Result<Json<Vec<Poster>>, StatusCode> {
                         .and_then(|n| n.to_str())
                         .unwrap_or("")
                         .to_string(),
-                    path: edited_path,
+                    path: edited_path.strip_prefix("frontend").unwrap().to_string(),
                 });
             }
         }

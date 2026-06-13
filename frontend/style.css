@@ -31,16 +31,20 @@ body {
     padding: var(--gap);
 }
 
+/*  */
 main {
     display: grid;
     height: 100%;
-    grid-template-columns: 1.2fr 1.1fr 0.7fr;
-    grid-template-rows: 1fr 1fr 0.3fr;
+    gap: var(--gap);
+
+    grid-template-columns: 1.6fr 1.6fr 0.8fr;
+
+    grid-template-rows: 1.4fr 0.6fr 0.3fr;
+
     grid-template-areas:
         "poster  calendar weather"
-        "poster  calendar clock"
+        "poster  clock    weather"
         "poster  quote    nameday";
-    gap: var(--gap);
 }
 
 section {
@@ -60,12 +64,34 @@ h1 {
     margin-bottom: 0.75rem;
 }
 
-section:nth-child(1) {
+.poster {
     grid-area: poster;
     padding: 0;
 }
+.calendar {
+    grid-area: calendar;
+}
+.quote {
+    grid-area: quote;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nameday {
+    grid-area: nameday;
+}
+.weather {
+    grid-area: weather;
+}
+.clock {
+    grid-area: clock;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-section:nth-child(1) img {
+/* POSTER */
+.poster img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -73,28 +99,110 @@ section:nth-child(1) img {
     display: block;
 }
 
-section:nth-child(2) {
-    grid-area: calendar;
-}
-
-section:nth-child(3) {
-    grid-area: quote;
+#time {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+    gap: 2rem;
 }
 
-section:nth-child(4) {
-    grid-area: nameday;
+#time .time-clock {
+    font-size: 5rem !important;
+    font-weight: 700;
+
+    color: var(--accent);
 }
 
-section:nth-child(5) {
-    grid-area: weather;
+#time .time-countdown {
+    font-size: 1.6rem !important;
+    color: var(--muted);
 }
 
-section:nth-child(6) {
-    grid-area: clock;
+#time .time-next {
+    font-size: 1.2rem !important;
+    color: var(--muted);
+    opacity: 0.8;
+}
+
+#calendar {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+}
+
+#calendar .cal-header {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 1000;
+}
+
+#calendar .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+#calendar .cal-dayname {
+    color: var(--muted);
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+#calendar .cal-cell {
+    padding: 1.5rem 0;
+    min-height: 2.4rem;
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+}
+
+#calendar .cal-cell span {
+    display: inline-block;
+    transform: scale(1.4);
+    transform-origin: center;
+}
+
+#calendar .cal-today {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: bold;
+}
+
+/* QUOTE */
+#quote {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+#quote .author {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+}
+
+.nameday-today {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--accent);
+    text-align: center;
+    margin-top: 1.8rem;
+}
+
+.nameday-today.muted {
+    color: var(--muted);
 }

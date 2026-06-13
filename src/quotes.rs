@@ -16,7 +16,7 @@ struct Quote {
 }
 
 pub async fn get_quotes() -> Result<Json<OuterQuotes>, StatusCode> {
-    let quotes = fs::read_to_string("frontend/dist/quotes.json").map_err(|e| {
+    let quotes = fs::read_to_string("frontend/resources/quotes.json").map_err(|e| {
         eprintln!("Failed to read quotes.json: {e}");
         StatusCode::INTERNAL_SERVER_ERROR
     })?;
