@@ -33,7 +33,6 @@ function renderCalendar() {
         <div class="cal-grid">
     `;
 
-  s;
   dayNames.forEach((d) => {
     html += `<div class="cal-dayname">${d}</div>`;
   });

@@ -10,7 +10,7 @@ async function loadNameday() {
 
     namedayEl.innerHTML = `
 
-            <div class="nameday-today">Dnes ma meniny ${data.nameday}</div>
+            <div class="nameday-today">Dnes má meniny ${data.nameday}</div>
         `;
   } catch (err) {
     console.error("Nameday error:", err);
