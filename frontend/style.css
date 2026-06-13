@@ -31,12 +31,12 @@ body {
 main {
     display: grid;
     height: 100%;
-    grid-template-columns: 1.4fr 1.2fr 1fr;
-    grid-template-rows: 1fr 1fr 0.4fr;
+    grid-template-columns: 1.2fr 1.1fr 0.7fr;
+    grid-template-rows: 1fr 1fr 0.3fr;
     grid-template-areas:
-        "poster  calendar nameday"
+        "poster  calendar weather"
         "poster  calendar clock"
-        "poster  quote    weather";
+        "poster  quote    nameday";
     gap: var(--gap);
 }
 
