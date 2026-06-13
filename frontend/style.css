@@ -1,14 +1,17 @@
 :root {
-    --bg: #0c0c0e;
-    --surface: #141416;
-    --border: #242428;
-    --text: #d4d4d8;
-    --muted: #52525b;
-    --accent: #7c6af7;
-    --radius: 3px;
-    --gap: 1.25rem;
-    --font-mono: "JetBrains Mono", "Fira Mono", monospace;
-    --font-body: "Inter", system-ui, sans-serif;
+    --bg: #18141a;
+    --surface: #221e24;
+    --border: #2f2931;
+    --text: #c7b8ad;
+    --muted: #9f9188;
+    --accent: #c46a3a;
+    --radius: 12px;
+    --gap: 1.5rem;
+
+    --font-body: "Georgia", "Garamond", serif;
+    --font-mono: "JetBrains Mono", monospace;
+
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 *,

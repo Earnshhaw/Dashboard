@@ -19,7 +19,9 @@ async fn main() {
         .route("/api/quotes", get(get_quotes))
         .fallback_service(ServeDir::new("frontend"));
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let address = "0.0.0.0:3000";
+    let listener = tokio::net::TcpListener::bind(address).await.unwrap();
+    println!("Listening on {}", address);
 
     axum::serve(listener, app).await.unwrap();
 }
