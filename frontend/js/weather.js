@@ -6,6 +6,7 @@ const WEATHER_ICONS = {
   45: "🌫️", // fog
   48: "🌫️",
   51: "🌦️", // drizzle
+  53: "🌦️", //
   61: "🌧️", // rain
   71: "🌨️", // snow
   95: "⛈️", // thunderstorm

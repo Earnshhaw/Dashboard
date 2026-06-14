@@ -6,8 +6,7 @@ use std::collections::HashMap;
 #[allow(unused)]
 #[derive(Debug, Clone, Deserialize)]
 struct NamedayResponse {
-    success: bool,
-    message: String,
+    #[serde(default)]
     data: HashMap<String, String>,
 }
 

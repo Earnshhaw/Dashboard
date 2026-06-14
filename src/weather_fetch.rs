@@ -4,52 +4,31 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
 #[allow(unused)]
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Default)]
 pub struct RawWeatherResponse {
-    pub latitude: f64,
-    pub longitude: f64,
-    pub generationtime_ms: f64,
-    pub utc_offset_seconds: i32,
-    pub timezone: String,
-    pub timezone_abbreviation: String,
-    pub elevation: f64,
-    pub current_units: current_units,
+    #[serde(default)]
     pub current: current,
 }
 
 #[allow(unused, non_camel_case_types)]
-#[derive(Debug, Deserialize)]
-pub struct current_units {
-    pub time: String,
-    pub interval: String,
-    pub temperature_2m: String,
-    pub relative_humidity_2m: String,
-    pub apparent_temperature: String,
-    pub wind_speed_10m: String,
-    pub precipitation: String,
-    pub cloud_cover: String,
-    pub weathercode: String,
-}
-
-#[allow(unused, non_camel_case_types)]
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Default)]
 pub struct current {
-    pub time: String,
-    pub interval: i32,
+    #[serde(default)]
     pub temperature_2m: f32,
+    #[serde(default)]
     pub relative_humidity_2m: f32,
+    #[serde(default)]
     pub apparent_temperature: f32,
+    #[serde(default)]
     pub wind_speed_10m: f32,
+    #[serde(default)]
     pub precipitation: f32,
+    #[serde(default)]
     pub cloud_cover: f32,
+    #[serde(default)]
     pub weathercode: i32,
 }
 
-impl AsRef<std::path::Path> for ProcessedWeatherResponse {
-    fn as_ref(&self) -> &std::path::Path {
-        std::path::Path::new("")
-    }
-}
 #[derive(Debug, Deserialize, Serialize, Clone, Default)]
 pub struct ProcessedWeatherResponse {
     temperature: f32,
@@ -59,6 +38,12 @@ pub struct ProcessedWeatherResponse {
     precipitation: f32,
     cloud_cover: f32,
     weather_code: i32,
+}
+
+impl AsRef<std::path::Path> for ProcessedWeatherResponse {
+    fn as_ref(&self) -> &std::path::Path {
+        std::path::Path::new("")
+    }
 }
 
 static WEATHER_API_URL: &str = "https://api.open-meteo.com/v1/forecast?latitude=48.7164&longitude=21.2611&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,precipitation,cloud_cover,weathercode&timezone=auto";
