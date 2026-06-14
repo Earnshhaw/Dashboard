@@ -6,11 +6,11 @@ async function loadNameday() {
     const res = await fetch(NAMEDAY_URL);
     if (!res.ok) throw new Error("Failed to fetch nameday");
 
-    const data = await res.json();
+    const data = (await res.text()).replaceAll('"', "");
 
     namedayEl.innerHTML = `
 
-            <div class="nameday-today">Dnes má meniny ${data.nameday}</div>
+            <div class="nameday-today">Dnes má meniny ${data}</div>
         `;
   } catch (err) {
     console.error("Nameday error:", err);

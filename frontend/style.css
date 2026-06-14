@@ -39,7 +39,7 @@ main {
 
     grid-template-columns: 1.6fr 1.6fr 0.8fr;
 
-    grid-template-rows: 1.4fr 0.6fr 0.3fr;
+    grid-template-rows: 1.4fr 0.6fr 0.25fr;
 
     grid-template-areas:
         "poster  calendar weather"
@@ -189,8 +189,8 @@ h1 {
 }
 
 #quote .author {
-    margin-top: 0.75rem;
-    font-size: 0.9rem;
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
     color: var(--muted);
     font-style: italic;
 }
@@ -198,11 +198,36 @@ h1 {
 .nameday-today {
     font-size: 1.4rem;
     font-weight: 400;
-    color: var(--accent);
+    color: var(--text);
     text-align: center;
-    margin-top: 1.8rem;
+    margin-top: 1.3rem;
 }
 
 .nameday-today.muted {
     color: var(--muted);
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.weather-icon {
+    font-size: 4rem;
+}
+
+.weather-temp {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.weather-details {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--muted);
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 use axum::{Json, http::StatusCode};
 use reqwest::Client;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::collections::HashMap;
 
 #[allow(unused)]
@@ -11,22 +11,18 @@ struct NamedayResponse {
     data: HashMap<String, String>,
 }
 
-#[derive(Debug, Clone, Deserialize, Default, Serialize)]
-pub struct ProcessedResponse {
-    nameday: String,
-}
-
 static NAMEDAY_API_URL: &str = "https://nameday.abalin.net/api/V2/today/";
 
-pub async fn nameday() -> Result<Json<ProcessedResponse>, StatusCode> {
+pub async fn nameday() -> Result<Json<String>, StatusCode> {
     let client = Client::new();
+
     let response = client.get(NAMEDAY_API_URL).send().await.map_err(|e| {
         eprintln!("{e}");
         StatusCode::REQUEST_TIMEOUT
     })?;
 
     let parsed: NamedayResponse = response.json().await.map_err(|e| {
-        eprintln!("{e}");
+        eprintln!("Deserialization error in nameday: {e}");
         StatusCode::REQUEST_TIMEOUT
     })?;
 
@@ -37,5 +33,5 @@ pub async fn nameday() -> Result<Json<ProcessedResponse>, StatusCode> {
         }
     };
 
-    Ok(Json(ProcessedResponse { nameday: parsed }))
+    Ok(Json(parsed))
 }

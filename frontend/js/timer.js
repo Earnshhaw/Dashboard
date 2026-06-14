@@ -57,8 +57,8 @@ function slovakLessonName(name) {
 }
 
 const TEST_MODE = false;
-const TEST_HOUR = 9;
-const TEST_MINUTE = 30;
+const TEST_HOUR = 14;
+const TEST_MINUTE = 24;
 
 function updateTimeAndSchedule() {
   if (!SCHEDULE.length) return;
