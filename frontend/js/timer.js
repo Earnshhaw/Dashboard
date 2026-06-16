@@ -122,10 +122,6 @@ function updateTimeAndSchedule() {
   timeEl.innerHTML = `
         <div class="time-clock">${currentTimeStr}</div>
         <div class="time-countdown">Zvoní o ${formatCountdown(remaining)}</div>
-        <div class="time-next">Nasleduje: ${
-          nextBlock.type === "break"
-            ? "prestávka"
-            : slovakLessonName(nextBlock.name)
-        }</div>
+        <div class="time-next">${nextBlock ? `Nasleduje: ${nextBlock.type === "break" ? "prestávka" : slovakLessonName(nextBlock.name)}` : "Koniec vyučovania"}</div>
     `;
 }
