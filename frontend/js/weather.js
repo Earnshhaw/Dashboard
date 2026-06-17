@@ -32,19 +32,29 @@ async function loadWeather() {
             </div>
 
             <div class="weather-details">
-                <div>Feels like: <strong>${Math.round(data.apparent_temperature)}°C</strong></div>
-                <div>Humidity: <strong>${data.humidity}%</strong></div>
-                <div>Wind: <strong>${Math.round(data.wind_speed)} km/h</strong></div>
-                <div>Clouds: <strong>${data.cloud_cover}%</strong></div>
+                <div>Zdanlivá teplota: <strong>${Math.round(data.apparent_temperature)}°C</strong></div>
+                <div>Vlhkosť: <strong>${data.humidity}%</strong></div>
+                <div>Vietor: <strong>${Math.round(data.wind_speed)} km/h</strong></div>
+                <div>Zamračenie: <strong>${data.cloud_cover}%</strong></div>
             </div>
         `;
   } catch (err) {
     console.error("Weather error:", err);
     weatherEl.innerHTML = `
-            <h1>Weather</h1>
-            <div class="muted">Unavailable</div>
+      <div class="weather-main">
+          <div class="weather-icon"></div>
+          <div class="weather-temp">°C</div>
+      </div>
+
+      <div class="weather-details">
+          <div>Zdanlivá teplota: <strong>°C</strong></div>
+          <div>Vlhkosť: <strong>%</strong></div>
+          <div>Vietor: <strong> km/h</strong></div>
+          <div>Zamračenie: <strong>%</strong></div>
+      </div>
         `;
   }
 }
 
 loadWeather();
+setInterval(loadWeather, 1000 * 60 * 10);

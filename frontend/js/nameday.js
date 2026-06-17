@@ -33,4 +33,4 @@ function scheduleMidnightRefresh() {
 }
 
 loadNameday();
-scheduleMidnightRefresh();
+setInterval(loadNameday, 1000 * 60 * 60);

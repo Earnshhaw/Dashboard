@@ -57,8 +57,8 @@ function slovakLessonName(name) {
 }
 
 const TEST_MODE = false;
-const TEST_HOUR = 14;
-const TEST_MINUTE = 24;
+const TEST_HOUR = 15;
+const TEST_MINUTE = 30;
 
 function updateTimeAndSchedule() {
   if (!SCHEDULE.length) return;
@@ -122,6 +122,6 @@ function updateTimeAndSchedule() {
   timeEl.innerHTML = `
         <div class="time-clock">${currentTimeStr}</div>
         <div class="time-countdown">Zvoní o ${formatCountdown(remaining)}</div>
-        <div class="time-next">${nextBlock ? `Nasleduje: ${nextBlock.type === "break" ? "prestávka" : slovakLessonName(nextBlock.name)}` : "Koniec vyučovania"}</div>
+        <div class="time-next">${nextBlock ? `Nasleduje: ${nextBlock.type === "break" ? "prestávka" : slovakLessonName(nextBlock.name)}` : "Nasleduje koniec vyučovania"} </div>
     `;
 }

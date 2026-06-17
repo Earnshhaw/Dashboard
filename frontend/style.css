@@ -111,20 +111,23 @@ h1 {
 }
 
 #time .time-clock {
-    font-size: 5rem !important;
+    font-size: 5.2rem !important;
     font-weight: 700;
+    padding-bottom: 0rem;
 
     color: var(--accent);
 }
 
 #time .time-countdown {
-    font-size: 1.6rem !important;
+    font-size: 2rem !important;
+    padding-bottom: 1rem;
     color: var(--muted);
 }
 
 #time .time-next {
-    font-size: 1.2rem !important;
+    font-size: 1.6rem !important;
     color: var(--muted);
+    padding-bottom: 1rem;
     opacity: 0.8;
 }
 
@@ -182,15 +185,15 @@ h1 {
 
 /* QUOTE */
 #quote {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.5;
     text-align: center;
     padding: 0rem;
 }
 
 #quote .author {
-    margin-top: 0.2rem;
-    font-size: 0.8rem;
+    margin-top: 0rem;
+    font-size: 1rem;
     color: var(--muted);
     font-style: italic;
 }
@@ -226,8 +229,10 @@ h1 {
 }
 
 .weather-details {
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.4;
     color: var(--muted);
     text-align: center;
+    gap: 4rem;
+    padding: 1rem;
 }
